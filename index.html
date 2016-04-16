@@ -48,7 +48,7 @@
 
     socket.on('updatechat',function(msg){
       console.log(msg);
-      var li = $('<li>').text(msg);
+      li = $('<li>').text(msg);
       $('#messages').append(li);
     })
 

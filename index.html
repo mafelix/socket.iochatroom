@@ -11,12 +11,19 @@
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages li { padding: 5px 10px; }
     #messages li:nth-child(odd) { background: #eee; }
-    #users {list-style-type: none; float: right; position: relative; width:100px; margin-top:10px;}
+    #users {list-style-type: none; float: right; position: relative; width:100px; margin-top:10px;}      
+    #users-list {list-style-type: none; float: right; position: relative; width:100px; margin-top:10px;}
+
   </style>
 </head>
 <body>
+
   <ul id="users">
-    
+    <div class='header'>Users online:</div>
+    <div id='count'></div>
+    <ul id='users-list'>
+
+    </ul>
   </ul>
   <ul id="messages"></ul>
   <form action="">
@@ -32,19 +39,22 @@
       socket.emit('adduser', prompt('What is your name?'));
     })
     socket.on('updateusers',function(usernames){
-      console.log(usernames);
-      $('#users').empty();
+      // console.log(usernames);
+      $('#users-list').empty();
       $.each(usernames,function(key, value){
         li = $('<li>').text(usernames[key]);
-        $('#users').append(li);
+        $('#users-list').append(li);
       });
     });
+
     socket.on('updatechat',function(msg){
       li = $('<li>');
       $('#messages').append(li).text(msg);
     })
 
-    
+    socket.on('updateCount', function(count){
+      $('.header').text('Users online: ' + count);
+    });
 
 
     $('form').submit(function(){

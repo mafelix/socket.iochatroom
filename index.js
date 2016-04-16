@@ -19,12 +19,14 @@ io.on('connection', function(socket){
     usernames[name] = name
 
     socket.broadcast.emit('updatechat', socket.name + ' has connected');
-    io.emit('updateusers', usernames);
-    console.log(usernames);
+    io.sockets.emit('updateusers', usernames);
+    // console.log(usernames);
+    io.sockets.emit('updateCount', (io.engine.clientsCount));
   })
   socket.on('chat_message', function(msg){
     io.sockets.emit('chat_message', socket.name + ": " + msg);
   })
+
 
   socket.on('disconnect', function(){
     // deleting socket property name from usernames object
@@ -33,6 +35,7 @@ io.on('connection', function(socket){
     io.sockets.emit('updateusers', usernames);
     // updating chat box with message of disconnected user
     socket.broadcast.emit('updatechat', socket.name + " has disconnected");
+    io.sockets.emit('updateCount', (io.engine.clientsCount ));
   });
 });
 

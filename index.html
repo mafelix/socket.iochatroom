@@ -63,6 +63,9 @@
     });
     socket.on('chat_message', function(msg){
       $('#messages').append($('<li>').text(msg));
+      if($('#messages li').length > 29){
+        ($('#messages li:first').remove());
+      }
     })
   </script>
 </body>

@@ -11,7 +11,7 @@
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages li { padding: 5px 10px; }
     #messages li:nth-child(odd) { background: #eee; }
-    #users {list-style-type: none; float: right; position: relative; background-color: green;}
+    #users {list-style-type: none; float: right; position: relative; width:100px; margin-top:10px;}
   </style>
 </head>
 <body>
@@ -37,9 +37,12 @@
       $.each(usernames,function(key, value){
         li = $('<li>').text(usernames[key]);
         $('#users').append(li);
-      })
+      });
+    });
+    socket.on('updatechat',function(msg){
+      li = $('<li>');
+      $('#messages').append(li).text(msg);
     })
-    
 
     
 

@@ -31,6 +31,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     // deleting socket property name from usernames object
     delete usernames[socket.name];
+    // console.log(usernames[socket.name]);
     // updating ALL sockets about new users list/ passing it usernames object
     io.sockets.emit('updateusers', usernames);
     // updating chat box with message of disconnected user

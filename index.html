@@ -13,12 +13,13 @@
     #messages li:nth-child(odd) { background: #eee; }
     #users {list-style-type: none; left: 90%; position: fixed; text-align: left; width:100px; margin-top:10px;}      
     #users-list {list-style-type: none; width:100px; margin-top:10px;}
-
+    #btn-login{background-color: rgb(130, 224, 255); border: none; color: black; padding: 10px 32px; text-decoration:none; display: inline-block; font-size: 10px; margin: 4px 2px; cursor: pointer;}
   </style>
 </head>
 <body>
 
   <ul id="users">
+    <a href="#" id="btn-login">Sign In</a>
     <div class='header'></div>
     <ul id='users-list'>
 
@@ -35,8 +36,13 @@
     
     var socket = io();
     socket.on('connect', function(){
-      socket.emit('adduser', prompt('What is your name?'));
     })
+
+    $('#btn-login').on('click',function(){
+      socket.emit('adduser', prompt('What is your name?'));
+      $('#btn-login').remove();
+    });
+
     socket.on('updateusers',function(usernames){
       // console.log(usernames);
       $('#users-list').empty();
